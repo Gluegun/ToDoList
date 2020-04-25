@@ -12,19 +12,19 @@ public class Storage {
     private static int currentId = 1;
     private static Map<Integer, ThingToDo> thingsToDo = new HashMap<>();
 
-    public static List<ThingToDo> getAllThingsToDo() {
+    public synchronized static List<ThingToDo> getAllThingsToDo() {
 
         return new ArrayList<>(thingsToDo.values());
     }
 
-    public static int addThingToDo(ThingToDo thingToDo) {
+    public synchronized static int addThingToDo(ThingToDo thingToDo) {
         int id = currentId;
         thingToDo.setId(id);
         thingsToDo.put(id, thingToDo);
         return id;
     }
 
-    public static ThingToDo getThingToDoById(int id) {
+    public synchronized static ThingToDo getThingToDoById(int id) {
 
         if(thingsToDo.containsKey(id)) {
             return thingsToDo.get(id);
@@ -32,7 +32,7 @@ public class Storage {
         return null;
     }
 
-    public static ThingToDo deleteById(int id) {
+    public synchronized static ThingToDo deleteById(int id) {
         if (thingsToDo.containsKey(id)) {
             return thingsToDo.remove(id);
         }
