@@ -18,7 +18,7 @@ public class Storage {
     }
 
     public synchronized static int addThingToDo(ThingToDo thingToDo) {
-        int id = currentId;
+        int id = currentId++;
         thingToDo.setId(id);
         thingsToDo.put(id, thingToDo);
         return id;
