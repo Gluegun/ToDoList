@@ -26,7 +26,7 @@ public class Storage {
 
     public synchronized static ThingToDo getThingToDoById(int id) {
 
-        if(thingsToDo.containsKey(id)) {
+        if (thingsToDo.containsKey(id)) {
             return thingsToDo.get(id);
         }
         return null;
@@ -37,5 +37,14 @@ public class Storage {
             return thingsToDo.remove(id);
         }
         return null;
+    }
+
+    public synchronized static ThingToDo editThingToDoById(int id, ThingToDo thingToDo) {
+
+        if (thingsToDo.containsKey(id)) {
+            return thingsToDo.put(id, thingToDo);
+        } else {
+            return null;
+        }
     }
 }

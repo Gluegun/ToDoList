@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import response.ThingToDo;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,17 @@ public class ThingToDoController {
 
 
         ThingToDo thingToDo = Storage.deleteById(id);
+        if (thingToDo == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return new ResponseEntity(thingToDo, HttpStatus.OK);
+    }
+
+    @PutMapping("/toDo/{id}")
+    public ResponseEntity put(@PathVariable int id, ThingToDo thingToDo) {
+
+        Storage.editThingToDoById(id, thingToDo);
+
         if (thingToDo == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
