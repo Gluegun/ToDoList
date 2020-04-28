@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Список дел</title>
+    <style>
+        body {
+        background:
+        #40E0D0
+        }
+    </style>
+</head>
+
+
+<div align="left"><font size="15">Список дел</font></div>
+<p>
+{{#thingsToDo}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{description}}</span>
+        <button type="submit">Редактировать</button>
+        <button type="submit">Удалить</button>
+    </div>
+{{/thingsToDo}}
+
+<div>
+    <p>
+    <form method="post">
+        <input type="text" name="description" placeholder="Введите дело"/>
+    <button type="submit">Добавить</button>
+    </form>
+</div>
+
+
+</body>
+</html>

@@ -23,4 +23,10 @@ public class ThingToDo {
     @Setter
     private String description;
 
+    public ThingToDo() {
+    }
+
+    public ThingToDo(String description) {
+        this.description = description;
+    }
 }

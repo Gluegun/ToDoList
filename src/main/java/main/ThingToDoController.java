@@ -15,12 +15,12 @@ import java.util.Optional;
 public class ThingToDoController {
 
     @Autowired
-    private ThingToDoRepository thingToDoRepository;
+    private ThingToDoRepository repository;
 
     @GetMapping("/toDo/")
     public List<ThingToDo> getList() {
 
-        Iterable<ThingToDo> thingToDoIterable = thingToDoRepository.findAll();
+        Iterable<ThingToDo> thingToDoIterable = repository.findAll();
         List<ThingToDo> thingsToDo = new ArrayList<>();
         thingToDoIterable.forEach(thingsToDo::add);
 
@@ -31,7 +31,7 @@ public class ThingToDoController {
     @PostMapping("/toDo/")
     public int post(ThingToDo thingToDo) {
 
-        ThingToDo newThingToDo = thingToDoRepository.save(thingToDo);
+        ThingToDo newThingToDo = repository.save(thingToDo);
         return newThingToDo.getId();
 
     }
@@ -39,7 +39,7 @@ public class ThingToDoController {
     @GetMapping("/toDo/{id}")
     public ResponseEntity<ThingToDo> getById(@PathVariable int id) {
 
-        Optional<ThingToDo> optionalThingToDo = thingToDoRepository.findById(id);
+        Optional<ThingToDo> optionalThingToDo = repository.findById(id);
 
         return optionalThingToDo.map(thingToDo -> new ResponseEntity<>(thingToDo, HttpStatus.OK))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
@@ -49,9 +49,9 @@ public class ThingToDoController {
     @DeleteMapping("/toDo/{id}")
     public ResponseEntity<ThingToDo> deleteById(@PathVariable int id) {
 
-        Optional<ThingToDo> thingToDo = thingToDoRepository.findById(id);
+        Optional<ThingToDo> thingToDo = repository.findById(id);
         if (thingToDo.isPresent()) {
-            thingToDoRepository.deleteById(id);
+            repository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
@@ -60,12 +60,11 @@ public class ThingToDoController {
     @PutMapping("/toDo/{id}")
     public ResponseEntity<ThingToDo> putById(@PathVariable int id, ThingToDo thingToDo) {
 
-        Optional<ThingToDo> optionalThingToDo = thingToDoRepository.findById(id);
+        Optional<ThingToDo> optionalThingToDo = repository.findById(id);
 
         if (optionalThingToDo.isPresent()) {
-            ThingToDo save = thingToDoRepository.save(thingToDo);
+            ThingToDo save = repository.save(thingToDo);
             return new ResponseEntity<>(save, HttpStatus.OK);
-        }
-        else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 }
