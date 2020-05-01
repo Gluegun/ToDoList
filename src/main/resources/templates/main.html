@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Список дел</title>
+</head>
+
+<body>
+<h1>Дела(<span th:text="${thingsToDoCount}">0</span> шт.)</h1>
+
+
+<div th:each="thingToDo : ${thingsToDo}">
+    <div class="thingToDo-link" th:attr="data-id=${thingToDo.id}" th:text="${thingToDo.description}"></div>
+</div>
+<p>
+<form method="post">
+    <input type="text" name="description" placeholder="Введите дело"/>
+    <button type="submit">Добавить</button>
+</form>
+
+</body>
+</html>
